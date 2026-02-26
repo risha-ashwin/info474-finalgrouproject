@@ -38,7 +38,7 @@
       p.fill(25);
       p.textAlign(p.LEFT, p.TOP);
       p.textSize(16);
-      p.text("Public vs Private: Debt and Earnings", 42, 38);
+      p.text("Public vs. Private: Debt and Earnings", 42, 38);
 
       if (!manager.scorecardRows || !manager.scorecardRows.length) {
         p.fill(90);
@@ -54,7 +54,7 @@
       p.fill(90);
       p.textSize(12);
       p.text(
-        "Medians across institutions (Public n=" + s.public.n.toLocaleString() +
+        "Medians across Institution Types (Public n=" + s.public.n.toLocaleString() +
         ", Private n=" + s.private.n.toLocaleString() + ")",
         42, 62
       );
@@ -124,14 +124,14 @@
 
       drawRow(
         110,
-        "Median student debt",
+        "Median Student Debt",
         s.public.debt, s.private.debt, debtMax,
         function (v) { return "$" + Math.round(v).toLocaleString(); }
       );
 
       drawRow(
         300,
-        "Median earnings (10 years after entry)",
+        "Median Earnings (10 years after entry)",
         s.public.earn, s.private.earn, earnMax,
         function (v) { return "$" + Math.round(v).toLocaleString(); }
       );
@@ -139,7 +139,7 @@
       p.fill(110);
       p.textSize(11);
       p.textAlign(p.LEFT, p.BOTTOM);
-      p.text("Private includes nonprofit + for-profit (CONTROL 2 & 3).", 42, h - 30);
+      p.text("Private includes nonprofit + for-profit.", 42, h - 30);
 
       p.pop();
     }
