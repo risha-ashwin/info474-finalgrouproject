@@ -14,12 +14,18 @@
       console.error("startP5() not found. Make sure sketch_manager.js is loaded before sections.js");
       return;
     }
-    var api = startP5();
+
+    var api = window.__sketchAPI || startP5();
 
     var steps = Array.prototype.slice.call(document.querySelectorAll(".step"));
     if (!steps.length) {
       console.warn("No .step elements found.");
       return;
+    }
+
+    function setActiveFrom(el, ratio) {
+      var idx = getActiveIndex(el);
+      api.setState({ activeIndex: idx, progress: ratio || 1 });
     }
 
     var obs = new IntersectionObserver(function (entries) {
@@ -30,16 +36,18 @@
         if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
       }
       if (!best) return;
-
-      var idx = getActiveIndex(best.target);
-      api.setState({ activeIndex: idx, progress: best.intersectionRatio });
+      setActiveFrom(best.target, best.intersectionRatio);
     }, {
       root: null,
-      threshold: [0.35, 0.5, 0.65, 0.8]
+      threshold: [0.25, 0.35, 0.5, 0.65, 0.8]
     });
 
     steps.forEach(function (s) { obs.observe(s); });
 
-    api.setState({ activeIndex: getActiveIndex(steps[0]), progress: 1 });
+    setActiveFrom(steps[0], 1);
+
+    if (api.ready && typeof api.ready.then === "function") {
+      api.ready.catch(function (err) { console.error("API ready error:", err); });
+    }
   });
 })();
