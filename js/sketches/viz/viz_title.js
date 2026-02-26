@@ -1,6 +1,5 @@
 // viz_title.js
 // Draw title-style screens for early active indexes (0 and 1)
-// js/sketches/viz/viz_title.js
 (function () {
   window.VizTitle = {
     draw: function (p, manager) {
