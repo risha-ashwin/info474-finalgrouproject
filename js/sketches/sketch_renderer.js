@@ -2,39 +2,25 @@
 
 // Responsible for rendering the main visualization based on the current active index
 (function () {
-    window.Renderer = {
+  window.Renderer = {
+    setData: function () {
+      return Promise.resolve();
+    },
 
-        setData: function (manager) {
-            var self = this;
+    draw: function (p, manager, ai, progress) {
+      p.background(255);
 
-            manager.offsetX = (manager.margin && manager.margin.left) || 20;
-            manager.offsetY = (manager.margin && manager.margin.top) || 0;
+      if (ai === 0) return window.VizTitle.draw(p, manager, ai, progress);
+      if (ai === 1) return window.VizMapDebt.draw(p, manager, ai, progress);
+      if (ai === 2) return window.VizPublicPrivate.draw(p, manager, ai, progress);
 
-            function computeLayout(data) {
-                manager.data = data;
-            }
-
-            computeLayout([]);
-            return Promise.resolve(manager.data);
-        },
-
-        draw: function (p, manager, ai, progress) {
-            try { console.log('Renderer: delegating draw, ai=', ai); } catch (e) { }
-
-            if (ai === 0 || ai === 1) {
-                window.VizTitle.draw(p, manager, ai, progress);
-                return;
-            }
-
-            if (ai >= 4 && ai < 7) {
-                window.VizScatter.draw(p, manager, ai, progress);
-                return;
-            }
-
-            if (ai === 7) {
-                window.VizBar.draw(p, manager, ai, progress);
-                return;
-            }
-        }
-    };
+      // placeholder
+      p.push();
+      p.fill(20);
+      p.textAlign(p.CENTER, p.CENTER);
+      p.textSize(16);
+      p.text("More visualizations coming next…", manager.width / 2, manager.height / 2);
+      p.pop();
+    }
+  };
 })();
