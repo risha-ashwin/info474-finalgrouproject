@@ -74,13 +74,34 @@
         "Wisconsin":"WI","Wyoming":"WY"
       };
 
-      var topoURL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
-      return fetch(topoURL)
-        .then(function (r) { return r.json(); })
-        .then(function (topo) {
-          manager._usStates = topojson.feature(topo, topo.objects.states).features;
-          manager._usReady = true;
-        });
+      var urls = [
+        "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json",
+        "https://unpkg.com/us-atlas@3/states-10m.json"
+      ];
+
+      function tryFetch(i) {
+        return fetch(urls[i])
+          .then(function (r) {
+            if (!r.ok) throw new Error("TopoJSON HTTP " + r.status);
+            return r.json();
+          })
+          .then(function (topo) {
+            if (typeof topojson === "undefined") throw new Error("topojson library not loaded");
+            if (!topo.objects || !topo.objects.states) throw new Error("TopoJSON missing objects.states");
+
+            manager._usStates = topojson.feature(topo, topo.objects.states).features;
+            manager._usReady = true;
+            manager._mapError = null;
+          })
+          .catch(function (err) {
+            console.error("Map init failed:", urls[i], err);
+            if (i + 1 < urls.length) return tryFetch(i + 1);
+            manager._usReady = false;
+            manager._mapError = String(err);
+          });
+      }
+
+      return tryFetch(0);
     },
 
     draw: function (p, manager) {
@@ -96,17 +117,44 @@
       p.textSize(16);
       p.text("Geography of Student Debt", 42, 38);
 
+      // quick status line (helpful while debugging)
+      p.fill(120);
+      p.textSize(12);
+      p.text(
+        "rows=" + (manager.scorecardRows ? manager.scorecardRows.length : 0) +
+        " usReady=" + (manager._usReady ? "yes" : "no") +
+        " topojson=" + (typeof topojson) +
+        " d3=" + (typeof d3),
+        42, 62
+      );
+
       if (!manager.scorecardRows || !manager.scorecardRows.length) {
         p.fill(90);
         p.textSize(13);
-        p.text("Loading dataset…", 42, 64);
+        p.text("Loading dataset…", 42, 84);
         p.pop();
         return;
       }
+
       if (!manager._usReady) {
         p.fill(90);
         p.textSize(13);
-        p.text("Loading map…", 42, 64);
+        p.text("Loading map…", 42, 84);
+
+        if (manager._mapError) {
+          p.fill(140);
+          p.textSize(12);
+          p.text("Map error: " + manager._mapError, 42, 104);
+        }
+
+        p.pop();
+        return;
+      }
+
+      if (typeof d3 === "undefined") {
+        p.fill(140);
+        p.textSize(12);
+        p.text("Error: d3-geo library not loaded.", 42, 84);
         p.pop();
         return;
       }
@@ -117,13 +165,15 @@
 
       // recompute projection on resize
       if (!manager._mapProj || manager._needsLayout) {
-        var box = { x: 42, y: 84, w: w - 84, h: h - 160 };
+        var box = { x: 42, y: 96, w: w - 84, h: h - 175 };
         manager._mapBox = box;
 
         var proj = d3.geoAlbersUsa();
         proj.fitSize([box.w, box.h], { type: "FeatureCollection", features: manager._usStates });
         manager._mapProj = proj;
-        manager._mapPath = d3.geoPath(proj);
+
+        // ✅ more reliable path creation
+        manager._mapPath = d3.geoPath().projection(proj);
 
         // hit canvas for hover
         manager._hit = p.createGraphics(w, h);
@@ -134,16 +184,20 @@
         hctx.save();
         hctx.translate(box.x, box.y);
 
+        // draw each state with a unique color id
         for (var i = 0; i < manager._usStates.length; i++) {
           var id = i + 1;
           var rgb = idToRGB(id);
+
           hctx.beginPath();
-          manager._mapPath.context(hctx)(manager._usStates[i]);
+          manager._mapPath.context(hctx);
+          manager._mapPath(manager._usStates[i]);
+
           hctx.fillStyle = "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
           hctx.fill();
         }
-        hctx.restore();
 
+        hctx.restore();
         manager._needsLayout = false;
       }
 
@@ -154,12 +208,13 @@
       // hover detect
       var hoverIndex = null;
       manager._hit.loadPixels();
+
       var mx = Math.floor(p.mouseX), my = Math.floor(p.mouseY);
       if (mx >= 0 && mx < w && my >= 0 && my < h) {
-        var idx = 4 * (my * manager._hit.width + mx);
-        var r = manager._hit.pixels[idx];
-        var g = manager._hit.pixels[idx + 1];
-        var b = manager._hit.pixels[idx + 2];
+        var pix = 4 * (my * manager._hit.width + mx);
+        var r = manager._hit.pixels[pix];
+        var g = manager._hit.pixels[pix + 1];
+        var b = manager._hit.pixels[pix + 2];
         var id2 = rgbToId(r, g, b);
         if (id2 > 0) hoverIndex = id2 - 1;
       }
@@ -175,11 +230,15 @@
         var abbr = manager._nameToAbbr[name];
         var v = abbr ? manager._debtByState[abbr] : null;
 
-        var t = (v == null) ? 0 : clamp01((v - minV) / (maxV - minV));
+        // handle degenerate min/max
+        var denom = (maxV - minV) || 1;
+        var t = (v == null) ? 0 : clamp01((v - minV) / denom);
         var fill = (v == null) ? p.color(238) : colorRamp(p, t);
 
         ctx.beginPath();
-        manager._mapPath.context(ctx)(feat);
+        manager._mapPath.context(ctx);
+        manager._mapPath(feat);
+
         ctx.fillStyle = fill.toString();
         ctx.fill();
 
@@ -187,6 +246,7 @@
         ctx.strokeStyle = (hoverIndex === s) ? "rgba(0,0,0,0.75)" : "rgba(0,0,0,0.22)";
         ctx.stroke();
       }
+
       ctx.restore();
 
       drawLegend(p, 42, h - 78, 220, 10, minV, maxV);
