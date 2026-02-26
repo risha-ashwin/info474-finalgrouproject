@@ -239,7 +239,7 @@
         manager._mapPath.context(ctx);
         manager._mapPath(feat);
 
-        ctx.fillStyle = fill.toString();
+        ctx.fillStyle = "rgb(" + Math.round(fill.levels[0]) + "," + Math.round(fill.levels[1]) + "," + Math.round(fill.levels[2]) + ")";
         ctx.fill();
 
         ctx.lineWidth = (hoverIndex === s) ? 2.2 : 1.0;
