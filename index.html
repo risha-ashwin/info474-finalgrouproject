@@ -1,89 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>Scrolling Sections</title>
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Financial Reality of Higher Education</title>
+
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-  <div class="container">
-    <div id='graphic'>
-      <div id='sections'>
-        <section class="step" data-active-index="0">
-          <div class="title">INFO 474 Final Project</div>
-          Here is a template to work on your final project.<br /><br />
-          Your mission is to create an <b>interactive article using P5.js</b>.
-        </section>
-        <section class="step" data-active-index="1">
-          <div class="title">Sections</div>
-          Note that each section in index.html corresponds to a section in the
-          scrolling article. You can add or remove sections as needed.
-        </section>
-        <section class="step" data-active-index="2">
-          <div class="title">No visualization</div>
-          You don't need to have a visualization for every section. Some sections may simply be text.
-        </section>
-        <section class="step" data-active-index="3">
-          <div class="title">Narrative</div>
-          These sections will tell a story. You can use them to explain the visualization, provide context,
-          or share insights.
-        </section>
-        <section class="step" data-active-index="4">
-          <div class="title">Be creative</div>
-          Surprise your readers with interesting interactions, animations, or data visualizations.
-        </section>
-        <section class="step" data-active-index="5">
-          <div class="title">Same visualization multiple sections</div>
-          Some visualizations may be relevant to multiple sections. You can reuse the same visualization
-          across different sections to reinforce key points. Or build on the previous visualization to just add on.
-        </section>
-        <div id="extra-space">
-        </div>
-        <section class="step" data-active-index="6">
-          <div class="title">Examples</div>
-          There is two examples in this code. One is a grid of circles that changes color
-          based on the section index. The other is a scatter plot and bar chart that
-          shows random data points. You can modify or replace these examples with your own visualizations.
-          Make sure you read both source files to understand how they work.
-        </section>
-        <section class="step" data-active-index="7">
-          <div class="title">Best of Luck in the Project!</div>
-          You are now ready to start building your interactive article. Good luck!
-        </section>
-      </div>
-      <div id='vis' class='vis-hidden'>
-      </div>
-      <div id="extra-space">
-      </div>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">INFO 474 • Interactive Article</div>
+      <div class="subtitle">Student Debt & Earnings</div>
     </div>
-  </div>
+  </header>
 
+  <main class="page">
+    <div id="graphic">
+      <div id="sections">
 
-  <!-- p5.js (using CDN) -->
+        <section class="step" data-active-index="0">
+          <div class="kicker">Higher Education</div>
+          <h1 class="title">The Financial Reality of College</h1>
+          <p class="dek">
+            College is often described as an investment in the future — but how strong is the return after graduation?
+          </p>
+          <p>
+            Many students pursue higher education to secure stable careers or deepen knowledge in areas they care about.
+            But in the U.S., continuing education has become exceptionally expensive due to rising tuition costs. Many
+            students rely on loans that must be repaid once graduates begin earning — often leaving them with
+            significant student debt.
+          </p>
+          <p>
+            Using national institutional data, this interactive article explores how student debt and post-enrollment
+            earnings vary across states and types of colleges, offering a clearer perspective on the financial realities
+            of higher education.
+          </p>
+          <div class="mini-note">Scroll to explore. Hover states/bars for details.</div>
+        </section>
+
+        <section class="step" data-active-index="1">
+          <div class="kicker">Visualization 1</div>
+          <h2 class="title">Where is student debt highest?</h2>
+          <p>
+            Debt levels aren’t evenly distributed. This map shows the <b>median student debt</b> by state (based on
+            institutions in the dataset).
+          </p>
+          <p class="hint">Hover a state to see its median debt.</p>
+        </section>
+
+        <section class="step" data-active-index="1">
+          <h2 class="title">Reading the map</h2>
+          <p>
+            Differences can reflect a mix of tuition, aid availability, and how many students attend different types of
+            schools in each state. This is a high-level snapshot — next we compare institution types directly.
+          </p>
+        </section>
+
+        <section class="step" data-active-index="2">
+          <div class="kicker">Visualization 2</div>
+          <h2 class="title">Public vs Private outcomes</h2>
+          <p>
+            Do private institutions lead to higher debt? And do graduates earn more later? This view compares typical
+            (median) debt and earnings between public and private institutions.
+          </p>
+          <p class="hint">Hover bars for exact values.</p>
+        </section>
+
+        <section class="step" data-active-index="2">
+          <h2 class="title">Simran's Visualization Title</h2>
+          <p>
+            Simran's Visualization Explanation
+          </p>
+        </section>
+
+        <section class="step" data-active-index="3">
+          <div class="kicker">Coming next</div>
+          <h2 class="title">More relationships</h2>
+          <p>
+            Next: tuition vs debt, debt vs earnings, and how outcomes differ by degree level — with more interactivity.
+          </p>
+        </section>
+
+        <div id="extra-space"></div>
+      </div>
+
+      <div id="vis"></div>
+    </div>
+
+    <footer class="footer">
+      Data source: U.S. Department of Education College Scorecard (processed to a small CSV).
+    </footer>
+  </main>
+
+  <!-- p5 -->
   <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>
-  <!-- helpers (data/loading, scroller, visual controller) -->
-  <script src="js/helpers/data_loader.js"></script>
+
+  <!-- map libs -->
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-geo@3/dist/d3-geo.min.js"></script>
+
+  <!-- your helpers -->
   <script src="js/helpers/scroller.js"></script>
   <script src="js/helpers/visual_controller.js"></script>
-
-  <!-- orchestrator (wires scroller -> sketch) -->
   <script src="js/helpers/sections.js"></script>
 
-  <!-- sketches (manager) -->
+  <!-- new loader -->
+  <script src="js/helpers/scorecard_loader.js"></script>
+
+  <!-- sketches -->
   <script src="js/sketches/sketch_manager.js"></script>
-
-  <!-- sketches (example renderer) -->
-  <script src="js/sketches/examples/sketch_grid.js"></script>
-
-  <!-- sketches (renderers): UPDATE HERE FOR PROJECT -->
   <script src="js/sketches/viz/viz_title.js"></script>
-  <script src="js/sketches/viz/viz_scatter.js"></script>
-  <script src="js/sketches/viz/viz_bar.js"></script>
+  <script src="js/sketches/viz/viz_map_debt.js"></script>
+  <script src="js/sketches/viz/viz_public_private.js"></script>
   <script src="js/sketches/sketch_renderer.js"></script>
 
-
 </body>
-
 </html>
