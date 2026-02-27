@@ -18,7 +18,7 @@ function startP5() {
     var self = this;
 
     // ---- Load Scorecard CSV ----
-    ScorecardLoader.loadInstitutionClean("../data/institution_clean.csv")
+    ScorecardLoader.loadInstitutionClean("data/institution_clean.csv")
       .then(function(rows) {
         self.scorecardRows = rows;  // for viz_public_private.js and others
         console.log("Scorecard loaded:", rows.length, "rows");
