@@ -1,11 +1,11 @@
 // scroller.js
-// Small Scroller abstraction (extracted from sections_p5.js) that computes
-// active step index and progress and exposes a lightweight .on(action, cb)
+// Small Scroller abstraction that computes active step index and progress
+// and exposes a lightweight .on(action, cb)
 (function () {
+
     function Scroller(containerSelector, stepSelector, trigger) {
         this.container = document.querySelector(containerSelector) || document.body;
         this.steps = Array.prototype.slice.call(document.querySelectorAll(stepSelector));
-        // sectionPositions will store absolute page Y positions (window.pageYOffset + element top)
         this.sectionPositions = [];
         this.trigger = trigger || 'top'; // 'top' or 'center'
         this.currentIndex = -1;
@@ -13,12 +13,11 @@
         this.onProgress = function () { };
 
         var self = this;
+
+        // Compute absolute page positions of each section
         this.resize = function () {
             self.sectionPositions = [];
             self.steps.forEach(function (el) {
-                // store absolute positions according to trigger type:
-                // - 'center' -> element vertical center
-                // - otherwise -> element top
                 var rect = el.getBoundingClientRect();
                 var top = rect.top + window.pageYOffset;
                 if (self.trigger === 'center') {
@@ -30,15 +29,11 @@
             });
         };
 
+        // Determine which section is active and progress through it
         this.position = function () {
-            // Determine the Y coordinate (absolute page Y) at which we consider a step "active"
-            var triggerY;
-            if (self.trigger === 'center') {
-                triggerY = window.pageYOffset + (window.innerHeight / 2);
-            } else {
-                // default to a small offset from top of viewport
-                triggerY = window.pageYOffset + 10;
-            }
+            var triggerY = (self.trigger === 'center')
+                ? window.pageYOffset + window.innerHeight / 2
+                : window.pageYOffset + 10;
 
             var sectionIndex = 0;
             for (var i = 0; i < self.sectionPositions.length; i++) {
@@ -47,26 +42,35 @@
             }
             sectionIndex = Math.min(self.sectionPositions.length - 1, sectionIndex);
 
-            if (self.currentIndex !== sectionIndex) {
-                self.currentIndex = sectionIndex;
-                self.onActive(sectionIndex);
+            var elem = self.steps[sectionIndex];
+
+            // Use data-active-index if present
+            var ai = elem.hasAttribute('data-active-index')
+                ? +elem.getAttribute('data-active-index')
+                : sectionIndex;
+
+            if (self.currentIndex !== ai) {
+                self.currentIndex = ai;
+                self.onActive(ai);
             }
 
-            // Compute progress as fraction through the current section's
-            // bounding box for finer-grained values (0..1).
-            var elem = self.steps[sectionIndex];
+            // Compute progress through current section (0..1)
             var rect = elem.getBoundingClientRect();
             var elemTop = rect.top + window.pageYOffset;
             var elemHeight = rect.height || 1; // avoid divide-by-zero
             var rawSectionProgress = (triggerY - elemTop) / elemHeight;
             var progress = Math.max(0, Math.min(1, rawSectionProgress));
-            // console.log('scroller: sectionIndex=', sectionIndex, ' progress=', progress.toFixed(3));
-            self.onProgress(sectionIndex, progress);
+            self.onProgress(ai, progress);
         };
 
         window.addEventListener('resize', this.resize);
         window.addEventListener('scroll', this.position);
-        setTimeout(function () { self.resize(); self.position(); }, 50);
+
+        // Initial calculation
+        setTimeout(function () {
+            self.resize();
+            self.position();
+        }, 50);
     }
 
     Scroller.prototype.on = function (action, cb) {
@@ -76,4 +80,5 @@
     };
 
     window.Scroller = Scroller;
+
 })();
