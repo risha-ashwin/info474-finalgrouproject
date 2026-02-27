@@ -31,8 +31,8 @@
             // ---- EXTRACT DATA ----
             if (!manager._debtData) {
                 manager._debtData = manager.scorecardRows
-                    .map(d => ({ debt: d.debt, tuition: d.avgCost }))
-                    .filter(d => d.debt != null && d.tuition != null);
+                    .map(d => ({ debt: d.debt, tuition: d.avgCost })) // map avgCost → tuition
+                    .filter(d => d.debt != null && d.tuition != null); // check 'tuition', not 'avgCost'
             }
 
             var data = manager._debtData;
