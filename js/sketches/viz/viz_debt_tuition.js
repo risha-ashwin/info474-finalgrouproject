@@ -10,7 +10,7 @@
                 p.push();
                 p.fill(90);
                 p.textSize(13);
-                p.text("Loading dataset…", 42, 64);
+                p.text("Student Debt vs Annual Average Tuition", 42, 38);
                 p.pop();
                 return;
             }
