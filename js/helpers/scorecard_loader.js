@@ -27,13 +27,15 @@
         var raw = parseCSV(text);
         return raw.map(function (d) {
           return {
+            name: d.institution_name,
             state: d.state,
             control: toNum(d.control),        // 1 public, 2 private nonprofit, 3 private for-profit
             debt: toNum(d.debt_mdn),
-            earn10: toNum(d.earn_mdn_10y)
+            earn10: toNum(d.earn_mdn_10y),
+            avgCost: toNum(d.average_cost)
           };
         }).filter(function (d) {
-          return d.state && d.control != null && d.debt != null && d.earn10 != null;
+          return d.state && d.control != null && d.debt != null && d.earn10 != null && d.name != null && d.avgCost != null;
         });
       });
   }

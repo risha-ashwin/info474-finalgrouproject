@@ -1,44 +1,29 @@
-// viz_debt_tuition.js
+// viz_debt_tuition_scorecard.js
 (function () {
 
     window.VizDebtTuition = {
 
         draw: function (p, manager) {
 
-            // ---- LOAD CSV ONLY ONCE ----
-            if (!manager._debtDataLoaded) {
+            if (!manager.scorecardRows || !manager.scorecardRows.length) {
+                // Data isn’t loaded yet
+                p.push();
+                p.fill(90);
+                p.textSize(13);
+                p.text("Loading dataset…", 42, 64);
+                p.pop();
+                return;
+            }
 
-                p.loadTable("../data/institution_clean.csv", "csv", "header",
-                    function (table) {
-
-                        var rows = table.getRows();
-                        var cleaned = [];
-
-                        for (var i = 0; i < rows.length; i++) {
-
-                            var debt = parseFloat(rows[i].get("dbt_mean"));
-                            var tuition = parseFloat(rows[i].get("average_cost"));
-
-                            if (!isNaN(debt) && !isNaN(tuition)) {
-                                cleaned.push({
-                                    debt: debt,
-                                    tuition: tuition
-                                });
-                            }
-                        }
-
-                        manager._debtData = cleaned;
-                        manager._debtDataLoaded = true;
-
-                        console.log("Loaded rows:", cleaned.length);
-                    }
-                );
-
-                return; // wait until data loads
+            // ---- EXTRACT RELEVANT FIELDS ----
+            if (!manager._debtData) {
+                manager._debtData = manager.scorecardRows
+                    .map(d => ({ debt: d.debt, tuition: d.avgCost }))
+                    .filter(d => d.debt != null && d.tuition != null);
             }
 
             var data = manager._debtData;
-            if (!data || data.length === 0) return;
+            if (!data.length) return;
 
             // ---- SETUP DIMENSIONS ----
             p.push();
@@ -73,22 +58,16 @@
             p.stroke(0);
             p.line(offsetX + margin, offsetY + height - margin,
                    offsetX + width - margin, offsetY + height - margin);
-
             p.line(offsetX + margin, offsetY + height - margin,
                    offsetX + margin, offsetY + margin);
 
+            // ---- X TICKS ----
             p.noStroke();
             p.fill(0);
             p.textSize(12);
-
-            // ---- X TICKS ----
             for (var i = 0; i <= 5; i++) {
                 var val = xMin + i * (xMax - xMin) / 5;
-                var x = p.map(val, xMin, xMax,
-                    offsetX + margin,
-                    offsetX + width - margin
-                );
-
+                var x = p.map(val, xMin, xMax, offsetX + margin, offsetX + width - margin);
                 p.stroke(0);
                 p.line(x, offsetY + height - margin, x, offsetY + height - margin + 5);
                 p.noStroke();
@@ -99,11 +78,7 @@
             // ---- Y TICKS ----
             for (var i = 0; i <= 5; i++) {
                 var val = yMin + i * (yMax - yMin) / 5;
-                var y = p.map(val, yMin, yMax,
-                    offsetY + height - margin,
-                    offsetY + margin
-                );
-
+                var y = p.map(val, yMin, yMax, offsetY + height - margin, offsetY + margin);
                 p.stroke(0);
                 p.line(offsetX + margin - 5, y, offsetX + margin, y);
                 p.noStroke();
@@ -114,11 +89,7 @@
             // ---- AXIS LABELS ----
             p.textAlign(p.CENTER);
             p.textSize(14);
-            p.text("Average Tuition ($)",
-                offsetX + width / 2,
-                offsetY + height - 30
-            );
-
+            p.text("Average Tuition ($)", offsetX + width / 2, offsetY + height - 30);
             p.push();
             p.translate(offsetX + 40, offsetY + height / 2);
             p.rotate(-p.HALF_PI);
@@ -128,46 +99,28 @@
             // ---- DRAW POINTS ----
             p.noStroke();
             p.fill(0, 120, 255, 140);
-
-            for (var i = 0; i < data.length; i++) {
-
-                var x = p.map(data[i].tuition, xMin, xMax,
-                    offsetX + margin,
-                    offsetX + width - margin
-                );
-
-                var y = p.map(data[i].debt, yMin, yMax,
-                    offsetY + height - margin,
-                    offsetY + margin
-                );
-
+            data.forEach(d => {
+                var x = p.map(d.tuition, xMin, xMax, offsetX + margin, offsetX + width - margin);
+                var y = p.map(d.debt, yMin, yMax, offsetY + height - margin, offsetY + margin);
                 p.ellipse(x, y, 5, 5);
-            }
+            });
 
             // ---- REGRESSION LINE ----
             var n = data.length;
             var sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
-
-            for (var i = 0; i < n; i++) {
-                sumX += data[i].tuition;
-                sumY += data[i].debt;
-                sumXY += data[i].tuition * data[i].debt;
-                sumX2 += data[i].tuition * data[i].tuition;
-            }
-
-            var slope = (n * sumXY - sumX * sumY) /
-                        (n * sumX2 - sumX * sumX);
-
+            data.forEach(d => {
+                sumX += d.tuition;
+                sumY += d.debt;
+                sumXY += d.tuition * d.debt;
+                sumX2 += d.tuition * d.tuition;
+            });
+            var slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
             var intercept = (sumY - slope * sumX) / n;
-
-            var x1 = xMin;
-            var y1 = slope * x1 + intercept;
-            var x2 = xMax;
-            var y2 = slope * x2 + intercept;
+            var x1 = xMin, y1 = slope * x1 + intercept;
+            var x2 = xMax, y2 = slope * x2 + intercept;
 
             p.stroke(255, 0, 0);
             p.strokeWeight(2);
-
             p.line(
                 p.map(x1, xMin, xMax, offsetX + margin, offsetX + width - margin),
                 p.map(y1, yMin, yMax, offsetY + height - margin, offsetY + margin),
