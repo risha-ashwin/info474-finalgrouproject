@@ -41,6 +41,7 @@
       if (ai === 0) return window.VizTitle.draw(p, manager, ai, progress);
       if (ai === 1) return window.VizMapDebt.draw(p, manager, ai, progress);
       if (ai === 2) return window.VizPublicPrivate.draw(p, manager, ai, progress);
+      if (ai === 3) return window.VizDebtTuition.draw(p, manager, ai, progress);
 
       // Placeholder
       p.push();
