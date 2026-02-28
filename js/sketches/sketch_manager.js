@@ -17,17 +17,6 @@ function startP5() {
 
     var self = this;
 
-    // ---- Load Scorecard CSV ----
-    ScorecardLoader.loadInstitutionClean("data/institution_clean.csv")
-      .then(function(rows) {
-        self.scorecardRows = rows;  // for viz_public_private.js and others
-        console.log("Scorecard loaded:", rows.length, "rows");
-        self._needsLayout = true;   // trigger redraw
-      })
-      .catch(function(err) {
-        console.error("Error loading Scorecard CSV:", err);
-      });
-
     // ---- Compute canvas size based on #vis container ----
     function computeCanvasSize() {
       var vis = document.getElementById("vis");
@@ -73,7 +62,16 @@ function startP5() {
 
         // Only draw if renderer exists
         if (localRenderer && localRenderer.draw) {
-          self.draw(p);
+          try {
+            self.draw(p);
+          } catch (err) {
+            console.error("Draw error:", err);
+            p.fill(180);
+            p.textSize(13);
+            p.textAlign(p.LEFT, p.TOP);
+            p.text("Render error: " + (err.message || err), 30, 30);
+            p.text("Stack: " + String(err.stack || "").slice(0, 200), 30, 50);
+          }
         }
       };
     };

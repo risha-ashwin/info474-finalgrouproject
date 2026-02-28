@@ -7,16 +7,19 @@
     setData: function (manager) {
       if (manager._dataReadyPromise) return manager._dataReadyPromise;
 
+      // Start the map's TopoJSON fetch immediately — it doesn't need the CSV
+      if (window.VizMapDebt && typeof window.VizMapDebt.init === "function") {
+        window.VizMapDebt.init(manager);
+      }
+
       manager._dataReadyPromise = ScorecardLoader
         .loadInstitutionClean("data/institution_clean.csv")
         .then(function (rows) {
-          manager.scorecardRows = rows;   
+          manager.scorecardRows = rows;
           manager.data = rows;
+          manager._needsLayout = true;
+          console.log("Scorecard loaded:", rows.length, "rows");
 
-          // Initialize sketches that have an init function
-          if (window.VizMapDebt && typeof window.VizMapDebt.init === "function") {
-            window.VizMapDebt.init(manager);
-          }
           if (window.VizPublicPrivate && typeof window.VizPublicPrivate.init === "function") {
             window.VizPublicPrivate.init(manager);
           }

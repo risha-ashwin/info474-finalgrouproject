@@ -4,17 +4,25 @@
     return isFinite(n) ? n : null;
   }
 
+  function stripQuotes(s) {
+    s = (s || "").trim();
+    if (s.charAt(0) === '"' && s.charAt(s.length - 1) === '"') {
+      s = s.slice(1, -1);
+    }
+    return s;
+  }
+
   function parseCSV(text) {
     var lines = (text || "").trim().split(/\r?\n/);
     if (!lines.length) return [];
 
-    var header = lines[0].split(",").map(function (s) { return s.trim(); });
+    var header = lines[0].split(",").map(stripQuotes);
     var out = [];
 
     for (var i = 1; i < lines.length; i++) {
       var parts = lines[i].split(",");
       var row = {};
-      for (var j = 0; j < header.length; j++) row[header[j]] = (parts[j] || "").trim();
+      for (var j = 0; j < header.length; j++) row[header[j]] = stripQuotes(parts[j]);
       out.push(row);
     }
     return out;

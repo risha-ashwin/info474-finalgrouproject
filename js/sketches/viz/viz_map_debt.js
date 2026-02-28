@@ -1,11 +1,4 @@
 (function () {
-  function median(arr) {
-    var a = arr.slice().sort(function (x, y) { return x - y; });
-    if (!a.length) return null;
-    var mid = Math.floor(a.length / 2);
-    return a.length % 2 ? a[mid] : (a[mid - 1] + a[mid]) / 2;
-  }
-
   function clamp01(t) { return Math.max(0, Math.min(1, t)); }
 
   function colorRamp(p, t) {
@@ -17,28 +10,6 @@
 
   function idToRGB(id) { return [id & 255, (id >> 8) & 255, (id >> 16) & 255]; }
   function rgbToId(r, g, b) { return (r | (g << 8) | (b << 16)); }
-
-  function buildDebtByState(rows) {
-    var by = {};
-    for (var i = 0; i < rows.length; i++) {
-      var st = rows[i].state;
-      if (!by[st]) by[st] = [];
-      by[st].push(rows[i].debt);
-    }
-
-    var out = {};
-    var vals = [];
-    Object.keys(by).forEach(function (st) {
-      var m = median(by[st]);
-      out[st] = m;
-      if (m != null) vals.push(m);
-    });
-
-    vals.sort(function (a, b) { return a - b; });
-    out.__min = vals.length ? vals[0] : 0;
-    out.__max = vals.length ? vals[vals.length - 1] : 1;
-    return out;
-  }
 
   function drawLegend(p, x, y, w, h, minV, maxV) {
     p.push();
@@ -61,6 +32,39 @@
     p.pop();
   }
 
+  // Load state_median_debt.csv and parse into a lookup object
+  function loadStateDebt(manager) {
+    if (manager._stateDebtPromise) return manager._stateDebtPromise;
+
+    manager._stateDebtPromise = fetch("data/state_median_debt.csv")
+      .then(function (r) { return r.text(); })
+      .then(function (text) {
+        var lines = text.trim().split(/\r?\n/);
+        var out = {};
+        var vals = [];
+        for (var i = 1; i < lines.length; i++) {
+          var parts = lines[i].split(",");
+          var st = parts[0].trim();
+          var debt = parseFloat(parts[1]);
+          if (st && isFinite(debt)) {
+            out[st] = debt;
+            vals.push(debt);
+          }
+        }
+        vals.sort(function (a, b) { return a - b; });
+        out.__min = vals.length ? vals[0] : 0;
+        out.__max = vals.length ? vals[vals.length - 1] : 1;
+        manager._debtByState = out;
+        console.log("State debt data loaded:", Object.keys(out).length - 2, "states");
+      })
+      .catch(function (err) {
+        console.error("Failed to load state_median_debt.csv:", err);
+        manager._stateDebtError = String(err);
+      });
+
+    return manager._stateDebtPromise;
+  }
+
   window.VizMapDebt = {
     init: function (manager) {
       manager._nameToAbbr = {
@@ -74,6 +78,10 @@
         "Wisconsin":"WI","Wyoming":"WY"
       };
 
+      // Start loading state debt CSV
+      loadStateDebt(manager);
+
+      // Fetch TopoJSON for US states geometry
       var urls = [
         "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json",
         "https://unpkg.com/us-atlas@3/states-10m.json"
@@ -117,21 +125,10 @@
       p.textSize(16);
       p.text("Geography of Student Debt", 42, 38);
 
-      // quick status line (helpful while debugging)
-      p.fill(120);
-      p.textSize(12);
-      p.text(
-        "rows=" + (manager.scorecardRows ? manager.scorecardRows.length : 0) +
-        " usReady=" + (manager._usReady ? "yes" : "no") +
-        " topojson=" + (typeof topojson) +
-        " d3=" + (typeof d3),
-        42, 62
-      );
-
-      if (!manager.scorecardRows || !manager.scorecardRows.length) {
+      if (!manager._debtByState) {
         p.fill(90);
         p.textSize(13);
-        p.text("Loading dataset…", 42, 84);
+        p.text("Loading debt data…", 42, 64);
         p.pop();
         return;
       }
@@ -139,41 +136,41 @@
       if (!manager._usReady) {
         p.fill(90);
         p.textSize(13);
-        p.text("Loading map…", 42, 84);
+        p.text("Loading map…", 42, 64);
 
         if (manager._mapError) {
           p.fill(140);
           p.textSize(12);
-          p.text("Map error: " + manager._mapError, 42, 104);
+          p.text("Map error: " + manager._mapError, 42, 84);
         }
 
         p.pop();
         return;
       }
 
-      if (typeof d3 === "undefined") {
+      if (typeof d3 === "undefined" || typeof d3.geoAlbersUsa !== "function") {
         p.fill(140);
         p.textSize(12);
-        p.text("Error: d3-geo library not loaded.", 42, 84);
+        p.text("Error: d3-geo library not loaded correctly.", 42, 64);
         p.pop();
         return;
       }
 
-      if (!manager._debtByState) {
-        manager._debtByState = buildDebtByState(manager.scorecardRows);
-      }
-
       // recompute projection on resize
       if (!manager._mapProj || manager._needsLayout) {
-        var box = { x: 42, y: 96, w: w - 84, h: h - 175 };
+        var box = { x: 42, y: 76, w: w - 84, h: h - 155 };
         manager._mapBox = box;
 
         var proj = d3.geoAlbersUsa();
         proj.fitSize([box.w, box.h], { type: "FeatureCollection", features: manager._usStates });
         manager._mapProj = proj;
 
-        // ✅ more reliable path creation
         manager._mapPath = d3.geoPath().projection(proj);
+
+        // Clean up old hit canvas before creating a new one
+        if (manager._hit) {
+          try { manager._hit.remove(); } catch (e) {}
+        }
 
         // hit canvas for hover
         manager._hit = p.createGraphics(w, h);
@@ -249,7 +246,7 @@
 
       ctx.restore();
 
-      drawLegend(p, 42, h - 78, 220, 10, minV, maxV);
+      drawLegend(p, 42, h - 58, 220, 10, minV, maxV);
 
       // tooltip
       if (hoverIndex != null) {
