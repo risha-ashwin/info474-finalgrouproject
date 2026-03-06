@@ -22,32 +22,34 @@
     <div id="graphic">
       <div id="sections">
 
+        <!-- Intro -->
         <section class="step" data-active-index="0">
           <div class="kicker">Higher Education</div>
-          <h1 class="title">The Financial Reality of Higher Education</h1>
+          <h1 class="title">The Financial Reality of College</h1>
           <p class="dek">
             College is often described as an investment in the future, but how strong is the return after graduation?
           </p>
           <p>
             Many students pursue higher education to secure stable careers or deepen knowledge in areas they care about.
             But in the U.S., continuing education has become exceptionally expensive due to rising tuition costs. Many
-            students rely on loans that must be repaid once graduates begin earning — often leaving them with
+            students rely on loans that must be repaid once graduates begin earning, often leaving them with
             significant student debt.
           </p>
           <p>
-            Using national institutional data, this interactive article explores how student debt and post-enrollment
-            earnings vary across states and types of colleges, offering a clearer perspective on the financial realities
-            of higher education.
+            Using national institutional data, this interactive article explores how tuition costs, student debt, and
+            post-enrollment earnings vary across states and types of colleges, offering a clearer perspective on the
+            financial realities of higher education.
           </p>
-          <div class="mini-note">Scroll to explore. Hover states/bars for details.</div>
+          <div class="mini-note">Scroll to explore. Hover states, bars, and points for details.</div>
         </section>
 
+        <!-- Visual 1 -->
         <section class="step" data-active-index="1">
           <div class="kicker">Visualization 1</div>
-          <h2 class="title">Where is student debt highest?</h2>
+          <h2 class="title">How does median student debt vary across U.S. states?</h2>
           <p>
-            Debt levels aren’t evenly distributed. This map shows the <b>median student debt</b> by state (based on
-            institutions in the dataset).
+            Debt levels aren’t evenly distributed. This map shows the <b>median student debt</b> by state based on
+            institutions in the dataset.
           </p>
           <p class="hint">Hover a state to see its median debt.</p>
         </section>
@@ -55,58 +57,75 @@
         <section class="step" data-active-index="1">
           <h2 class="title">Reading the map</h2>
           <p>
-            Differences can reflect a mix of tuition, aid availability, and how many students attend different types of
-            schools in each state. This is a high-level snapshot. Next we compare institution types directly.
+            Differences can reflect tuition, aid availability, local policy, and the mix of institutions students
+            attend in each state. The map gives a high-level geographic view before we compare institutions more directly.
           </p>
         </section>
 
+        <!-- Visual 2 -->
         <section class="step" data-active-index="2">
           <div class="kicker">Visualization 2</div>
-          <h2 class="title">Public vs Private outcomes</h2>
+          <h2 class="title">Is there a difference in student debt and earnings between public and private institutions?</h2>
           <p>
-            Do private institutions lead to higher debt? And do graduates earn more later? This view compares typical
-            (median) debt and earnings between public and private institutions.
+            This comparison looks at typical median debt and median earnings across public and private institutions.
           </p>
           <p class="hint">Hover bars for exact values.</p>
         </section>
 
-        <section class="step" data-active-index="3">
-          <div class="kicker">Visualization 3</div>
-          <h2 class="title">Median Student Debt and Post Enrollment Earnings</h2>
+        <section class="step" data-active-index="2">
+          <h2 class="title">What to look for</h2>
           <p>
-            Does the amount of student debt a student owns when they first start repaying impact their overal post enrollment earnings?
-          </p>
-          <p class="hint">Hover over points to see exact earnings and debt values.</p>
-          <p>
-            View the interactive scatterplot: 
-            <a href="https://editor.p5js.org/sgupta18/full/0NN1OmRPF" target="_blank">Median Student Debt vs. Post Enrollment Earnings</a>
-          </p>
-        </section>
-        
-        <section class="step" data-active-index="4">
-          <div class="kicker">Visualization 4</div>
-          <h2 class="title">Student Debt vs Annual Average Tuition</h2>
-          <p>
-            Does higher average tuition lead to higher median student debt? Is it more expensive overall to attend schools with higher fees?
-            Does tuition impact debt?
-          </p>
-          <p class="hint">Hover over points to see exact tuition and debt values.</p>
-          <p>
-            View the interactive scatterplot:
-            <a href="https://editor.p5js.org/sgupta18/full/f-ukjtne-" target="_blank">Median Student Debt vs. Average Tuition</a>
+            A gap in debt does not automatically mean a similar gap in earnings. Comparing both measures side by side
+            helps show whether higher borrowing appears to correspond to stronger outcomes later on.
           </p>
         </section>
 
+        <!-- Visual 3 -->
+        <section class="step" data-active-index="3">
+          <div class="kicker">Visualization 3</div>
+          <h2 class="title">Is there a relationship between median student debt and post-enrollment earnings?</h2>
+          <p>
+            If higher debt is “worth it,” we might expect institutions with more borrowing to also show higher earnings later.
+            This scatterplot compares each institution’s median student debt to median earnings 10 years after entry.
+          </p>
+          <p class="hint">Hover points for sample values.</p>
+        </section>
+
+        <section class="step" data-active-index="3">
+          <h2 class="title">Interpreting the pattern</h2>
+          <p>
+            Look for the overall direction of the cloud of points and how spread out it is. A weak or noisy pattern would suggest
+            that similar debt levels can still lead to very different financial outcomes.
+          </p>
+        </section>
+
+        <!-- Visual 4 -->
+        <section class="step" data-active-index="4">
+          <div class="kicker">Visualization 4</div>
+          <h2 class="title">Does higher tuition correspond to higher student debt?</h2>
+          <p>
+            This next view will compare tuition and student debt to explore whether more expensive institutions also tend
+            to leave students with higher borrowing.
+          </p>
+        </section>
+
+        <!-- Visual 5 -->
         <section class="step" data-active-index="5">
           <div class="kicker">Visualization 5</div>
-          <h2 class="title">Annual Average Tuition vs Median Earnings 10 years after entry</h2>
+          <h2 class="title">Do institutions with higher tuition tend to produce higher earnings?</h2>
           <p>
-            Does higher average tuition tend to produce higher earnings?
+            This visualization will compare tuition and earnings to see whether paying more appears to align with higher
+            post-enrollment outcomes.
           </p>
-          <p class="hint">Hover over points to see exact tuition for each school and earnings of a typical student from that school (10 years after entering the school).</p>
+        </section>
+
+        <!-- Visual 6 -->
+        <section class="step" data-active-index="6">
+          <div class="kicker">Visualization 6</div>
+          <h2 class="title">How do financial outcomes differ by the highest degree offered?</h2>
           <p>
-            View the interactive scatterplot:
-            <a href="https://editor.p5js.org/sgupta18/full/qdyeYl7EO" target="_blank">Median Student Earnings vs. Average Tuition</a>
+            The final view will compare debt and earnings by the highest degree level institutions offer, helping show
+            whether outcomes differ across institution types.
           </p>
         </section>
 
@@ -121,27 +140,24 @@
     </footer>
   </main>
 
-  <!-- p5 -->
   <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>
+  <script src="https://unpkg.com/topojson-client@3"></script>
+  <script src="https://unpkg.com/d3-geo@3"></script>
 
-  <!-- map libs -->
-  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
-
-  <!-- loader -->
   <script src="js/helpers/scorecard_loader.js"></script>
 
-  <!-- sketches -->
-  <script src="js/sketches/sketch_manager.js"></script>
   <script src="js/sketches/viz/viz_title.js"></script>
   <script src="js/sketches/viz/viz_map_debt.js"></script>
   <script src="js/sketches/viz/viz_public_private.js"></script>
+  <script src="js/sketches/viz/viz_debt_earnings.js"></script>
   <script src="js/sketches/viz/viz_debt_tuition.js"></script>
-  <script src="js/sketches/sketch_renderer.js"></script>
 
-  <!-- scrollytelling helpers -->
+  <script src="js/sketches/sketch_renderer.js"></script>
+  <script src="js/sketches/sketch_manager.js"></script>
+
   <script src="js/helpers/scroller.js"></script>
   <script src="js/helpers/visual_controller.js"></script>
   <script src="js/helpers/sections.js"></script>
 </body>
+
 </html>
