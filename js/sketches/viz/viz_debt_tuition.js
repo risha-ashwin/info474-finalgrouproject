@@ -36,13 +36,13 @@
         }
   
         // ---- PREP DATA ----
-        if (!manager._debtData) {
-          manager._debtData = manager.scorecardRows
+        if (!manager._debtTuitionData) {
+          manager._debtTuitionData = manager.scorecardRows
             .map(d => ({ debt: d.debt, avgCost: d.avgCost }))
             .filter(d => d.debt != null && d.avgCost != null);
         }
   
-        var data = manager._debtData;
+        var data = manager._debtTuitionData;
         if (!data.length) {
           p.pop();
           return;
