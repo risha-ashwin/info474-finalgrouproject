@@ -2,9 +2,9 @@
   function clamp01(t) { return Math.max(0, Math.min(1, t)); }
 
   function colorRamp(p, t) {
-    var r = Math.round(236 - 150 * t);
-    var g = Math.round(245 - 170 * t);
-    var b = Math.round(255 - 110 * t);
+    var r = Math.round(255 - 55 * t);
+    var g = Math.round(235 - 185 * t);
+    var b = Math.round(235 - 185 * t);
     return p.color(r, g, b);
   }
 

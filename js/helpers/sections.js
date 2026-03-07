@@ -16,16 +16,25 @@
       return;
     }
 
-    // Trigger-point scrollytelling: the step whose top edge is at or above the
-    // trigger line (40% from the top of the viewport) becomes the active step.
-    // This works reliably in both scroll directions regardless of step height.
+    // Captions for the explanation box below the visualization
+    var captions = {
+      0: "This article uses data from the U.S. Department of Education College Scorecard to explore the financial realities of higher education.",
+      1: "This choropleth map shows median student debt by state. Darker shades indicate higher median debt levels among institutions in that state.",
+      2: "Median debt and earnings are compared between public and private institutions. Private includes both nonprofit and for-profit schools.",
+      3: "Each point represents an institution. The x-axis shows median student debt and the y-axis shows median earnings 10 years after entry.",
+      4: "Each point represents an institution. The x-axis shows average tuition and the y-axis shows median student debt. The red line is a linear regression.",
+      5: "Each point represents an institution. The x-axis shows average tuition and the y-axis shows median earnings 10 years after entry.",
+      6: "Bars show average earnings grouped by the highest degree level an institution offers (0 = Non-degree, 1 = Certificate, 2 = Associate, 3 = Bachelor\u2019s, 4 = Graduate)."
+    };
+
+    var captionEl = document.getElementById("vis-caption");
+
     var lastIdx = -1;
 
     function update() {
       var triggerY = window.innerHeight * 0.4;
       var best = null;
 
-      // Walk backwards — the last step whose top is above the trigger wins
       for (var i = steps.length - 1; i >= 0; i--) {
         if (steps[i].getBoundingClientRect().top <= triggerY) {
           best = steps[i];
@@ -41,6 +50,9 @@
 
       if (idx !== lastIdx) {
         lastIdx = idx;
+        if (captionEl) {
+          captionEl.textContent = captions[idx] || "";
+        }
       }
 
       api.setState({ activeIndex: idx, progress: progress });
