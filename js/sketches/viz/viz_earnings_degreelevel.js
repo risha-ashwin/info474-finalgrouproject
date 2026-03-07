@@ -38,9 +38,9 @@
   
             var d = rows[i];
   
-            if (d.highest_degree_level != null && d.earn10 != null) {
+            if (d.degreeLevel != null && d.earn10 != null) {
   
-              var deg = d.highest_degree_level;
+              var deg = d.degreeLevel;
   
               if (!groups[deg]) {
                 groups[deg] = { sum: 0, count: 0 };

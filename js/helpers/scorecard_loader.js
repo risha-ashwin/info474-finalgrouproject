@@ -40,7 +40,8 @@
             control: toNum(d.control),        // 1 public, 2 private nonprofit, 3 private for-profit
             debt: toNum(d.debt_mdn),
             earn10: toNum(d.earn_mdn_10y),
-            avgCost: toNum(d.average_cost)
+            avgCost: toNum(d.average_cost),
+            degreeLevel: toNum(d.highest_degree_level)
           };
         }).filter(function (d) {
           return d.state && d.control != null && d.debt != null && d.earn10 != null && d.name != null && d.avgCost != null;

@@ -10,7 +10,7 @@
       }
 
       manager._dataReadyPromise = ScorecardLoader
-        .loadInstitutionClean("data/institution_clean.csv")
+        .loadInstitutionClean("data/institution_clean_final.csv")
         .then(function (rows) {
           manager.scorecardRows = rows;
           manager.data = rows;
@@ -52,7 +52,7 @@
       if (ai === 3 && window.VizDebtEarnings) return window.VizDebtEarnings.draw(p, manager, ai, progress);
       if (ai === 4 && window.VizDebtTuition) return window.VizDebtTuition.draw(p, manager, ai, progress);
       if (ai === 5 && window.VizTuitionEarnings) return window.VizTuitionEarnings.draw(p, manager, ai, progress);
-      if (ai === 6 && window.VizEarningsDegreelevel) return window.VizEarningsDegreelevel.draw(p, manager, ai, progress);
+      if (ai === 6 && window.VizDegreeEarnings) return window.VizDegreeEarnings.draw(p, manager, ai, progress);
 
       p.push();
       p.fill(50);
