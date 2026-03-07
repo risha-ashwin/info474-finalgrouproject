@@ -54,7 +54,15 @@ function startP5() {
 
       p.draw = function () {
         p.background(255);
-        self.draw(p);
+        try {
+          self.draw(p);
+        } catch (err) {
+          console.error("Draw error:", err);
+          p.fill(180);
+          p.textSize(13);
+          p.textAlign(p.LEFT, p.TOP);
+          p.text("Render error: " + (err.message || err), 30, 30);
+        }
       };
     };
 
