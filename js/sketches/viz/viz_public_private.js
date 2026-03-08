@@ -35,7 +35,7 @@
       p.fill(255);
       p.rect(18, 18, w - 36, h - 36, 18);
 
-      p.fill(25);
+      p.fill(0);
       p.textAlign(p.LEFT, p.TOP);
       p.textSize(18);
       p.text("Public vs. Private: Debt and Earnings", 42, 38);

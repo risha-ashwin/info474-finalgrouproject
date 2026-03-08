@@ -114,7 +114,7 @@
         }
 
         // Axes
-        p.stroke(0, 60);
+        p.stroke(0);
         p.line(box.x, box.y + box.h, box.x + box.w, box.y + box.h);
         p.line(box.x, box.y, box.x, box.y + box.h);
 
@@ -127,7 +127,7 @@
           var tickVal = (cache.maxEarn / 4) * ti;
           var tickY = box.y + box.h - (tickVal / cache.maxEarn) * box.h;
           p.text(fmtMoney(tickVal), box.x - 8, tickY);
-          p.stroke(0, 20);
+          p.stroke(0);
           p.line(box.x, tickY, box.x + box.w, tickY);
           p.noStroke();
         }
