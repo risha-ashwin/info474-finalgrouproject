@@ -9,7 +9,7 @@
         var h = manager.height || 600;
         var offsetX = manager.offsetX || 0;
         var offsetY = manager.offsetY || 0;
-        var margin = 80;
+        var margin = 110;
 
         p.push();
         // ---- BACKGROUND ----
@@ -88,7 +88,7 @@
         p.textSize(14);
         p.text("Median Student Debt (dollars)", offsetX + w / 2, offsetY + h - 30);
         p.push();
-        p.translate(offsetX + 20, offsetY + h / 2);
+        p.translate(offsetX + 35, offsetY + h / 2);
         p.rotate(-p.HALF_PI);
         p.text("Median Earnings (10 years after entry)", 0, 0);
         p.pop();

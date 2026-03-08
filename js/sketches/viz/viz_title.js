@@ -23,11 +23,10 @@
       }
 
       p.fill(40);
-      p.textAlign(p.LEFT, p.CENTER);
+      p.textAlign(p.LEFT, p.TOP);
       p.textSize(18);
       p.textStyle(p.BOLD);
-
-      p.text("How much financial return does a degree actually provide?", 42, 66, w - 84);
+      p.text("How much financial return does a degree actually provide?", 42, 46, w - 84, 32);
       p.textStyle(p.NORMAL);
 
       if (manager._introImg) {

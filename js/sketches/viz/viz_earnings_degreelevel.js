@@ -26,7 +26,7 @@
         p.fill(25);
         p.textAlign(p.LEFT, p.TOP);
         p.textSize(18);
-        p.text("Average Earnings by Highest Degree Offered", 42, 38);
+        p.text("Average Post-Enrollment Earnings by Highest Degree Offered", 42, 38);
 
         if (!manager.scorecardRows || !manager.scorecardRows.length) {
           p.fill(90);
