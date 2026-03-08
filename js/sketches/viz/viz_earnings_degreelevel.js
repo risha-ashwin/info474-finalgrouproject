@@ -23,13 +23,13 @@
         p.fill(255);
         p.rect(18, 18, w - 36, h - 36, 18);
 
-        p.fill(25);
+        p.fill(0);
         p.textAlign(p.LEFT, p.TOP);
         p.textSize(18);
         p.text("Average Post-Enrollment Earnings by Highest Degree Offered", 42, 38);
 
         if (!manager.scorecardRows || !manager.scorecardRows.length) {
-          p.fill(90);
+          p.fill(0);
           p.textSize(13);
           p.text("Loading dataset…", 42, 64);
           p.pop();
@@ -102,7 +102,7 @@
           p.rect(x, y, barWidth, barH, 4);
 
           // Bar label (degree name)
-          p.fill(40);
+          p.fill(0);
           p.textAlign(p.CENTER, p.TOP);
           p.textSize(11);
           p.text(b.label, x + barWidth / 2, box.y + box.h + 8);
@@ -120,7 +120,7 @@
 
         // Y-axis ticks
         p.noStroke();
-        p.fill(90);
+        p.fill(0);
         p.textSize(10);
         p.textAlign(p.RIGHT, p.CENTER);
         for (var ti = 0; ti <= 4; ti++) {
@@ -133,7 +133,7 @@
         }
 
         // Axis labels
-        p.fill(45);
+        p.fill(0);
         p.noStroke();
         p.textAlign(p.CENTER, p.TOP);
         p.textSize(13);
@@ -147,7 +147,7 @@
         p.pop();
 
         // Key / Legend
-        p.fill(90);
+        p.fill(0);
         p.textSize(10);
         p.textAlign(p.LEFT, p.TOP);
         var keyY = h - 52;
@@ -179,7 +179,7 @@
           p.rect(tx, ty, tw, th, 8);
 
           p.noStroke();
-          p.fill(20);
+          p.fill(0);
           p.textAlign(p.LEFT, p.TOP);
           p.text(msg1, tx + pad, ty + pad);
           p.text(msg2, tx + pad, ty + pad + 16);
