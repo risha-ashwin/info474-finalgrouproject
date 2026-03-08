@@ -24,23 +24,31 @@
 
       p.fill(70);
       p.textSize(14);
-      p.text("Scroll the article on the left.\nThe visuals update as you read.", 42, 160);
+      p.text("How much financial return does college actually provide?", 42, 42);
 
       if (manager._introImg) {
         var imgX = 42;
-        var imgY = 120;
+        var imgY = 165;
         var imgW = w - 84;
         var imgH = 300;
 
+        p.drawingContext.save();
+        p.drawingContext.beginPath();
+        p.drawingContext.roundRect(imgX, imgY, imgW, imgH, 16);
+        p.drawingContext.clip();
+
         p.image(manager._introImg, imgX, imgY, imgW, imgH);
+
+        p.drawingContext.restore();
       }
 
+      /*
       p.fill(110);
       p.textSize(12);
       var status = (manager.scorecardRows && manager.scorecardRows.length)
         ? ("Loaded " + manager.scorecardRows.length.toLocaleString() + " rows")
         : "Loading dataset…";
-      p.text(status, 42, h - 60);
+      p.text(status, 42, h - 60);*/
 
       p.pop();
     }
