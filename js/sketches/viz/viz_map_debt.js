@@ -122,7 +122,7 @@
 
       p.fill(25);
       p.textAlign(p.LEFT, p.TOP);
-      p.textSize(16);
+      p.textSize(18);
       p.text("Geography of Student Debt", 42, 38);
 
       if (!manager._debtByState) {

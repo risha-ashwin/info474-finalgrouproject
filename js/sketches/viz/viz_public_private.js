@@ -37,7 +37,7 @@
 
       p.fill(25);
       p.textAlign(p.LEFT, p.TOP);
-      p.textSize(16);
+      p.textSize(18);
       p.text("Public vs. Private: Debt and Earnings", 42, 38);
 
       if (!manager.scorecardRows || !manager.scorecardRows.length) {
