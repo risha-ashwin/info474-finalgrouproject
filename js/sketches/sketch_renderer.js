@@ -53,7 +53,8 @@
       if (ai === 4 && window.VizDebtTuition) return window.VizDebtTuition.draw(p, manager, ai, progress);
       if (ai === 5 && window.VizTuitionEarnings) return window.VizTuitionEarnings.draw(p, manager, ai, progress);
       if (ai === 6 && window.VizDegreeEarnings) return window.VizDegreeEarnings.draw(p, manager, ai, progress);
-
+      if (ai === 7 && window.VizConclusion) return window.VizConclusion.draw(p, manager, ai, progress);
+      
       p.push();
       p.fill(50);
       p.textAlign(p.CENTER, p.CENTER);
