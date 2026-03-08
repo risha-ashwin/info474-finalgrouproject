@@ -21,7 +21,7 @@
         p.fill(0);
         p.textAlign(p.LEFT, p.TOP);
         p.textSize(18);
-        p.text("Median Average Earnings vs. Average Tuition", 42, 38);
+        p.text("Average Post-Enrollment Earnings vs. Average Tuition", 42, 38);
 
         // ---- CHECK DATA ----
         if (!manager.scorecardRows || !manager.scorecardRows.length) {
@@ -90,7 +90,7 @@
         p.push();
         p.translate(offsetX + 20, offsetY + h / 2);
         p.rotate(-p.HALF_PI);
-        p.text("Average Student Earnings ($)", 0, 0);
+        p.text("Average Earnings (10 yrs after entry)", 0, 0);
         p.pop();
 
         // ---- DRAW POINTS + HOVER DETECTION ----
