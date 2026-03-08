@@ -140,7 +140,7 @@
         p.text("Highest Degree Level", box.x + box.w / 2, box.y + box.h + 28);
 
         p.push();
-        p.translate(box.x - 55, box.y + box.h / 2);
+        p.translate(box.x - 75, box.y + box.h / 2);
         p.rotate(-p.HALF_PI);
         p.textAlign(p.CENTER, p.TOP);
         p.text("Avg Earnings (10yr after entry)", 0, 0);
