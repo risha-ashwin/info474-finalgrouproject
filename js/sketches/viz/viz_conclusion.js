@@ -20,7 +20,7 @@
       p.textAlign(p.LEFT, p.TOP);
       p.textSize(18);
       p.textStyle(p.BOLD);
-      p.text("Higher education can open doors, but the financial outcomes are not the same for everyone.", 42, 46, w - 84, 32);
+      p.text("Higher education can open doors, but the financial outcomes are not the same for everyone.", 42, 46, w - 84, 80);
       p.textStyle(p.NORMAL);
 
       if (manager._conclusionImg) {

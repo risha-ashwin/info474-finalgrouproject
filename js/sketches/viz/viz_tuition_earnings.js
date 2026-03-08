@@ -86,7 +86,7 @@
         // ---- AXIS LABELS ----
         p.textAlign(p.CENTER);
         p.textSize(14);
-        p.text("Average Tuition (dollars)", offsetX + w / 2, offsetY + h - 30);
+        p.text("Average Tuition (dollars)", offsetX + w / 2, offsetY + h - 40);
         p.push();
         p.translate(offsetX + 35, offsetY + h / 2);
         p.rotate(-p.HALF_PI);
