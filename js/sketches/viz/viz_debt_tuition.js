@@ -19,7 +19,7 @@
 
         // ---- TITLE ----
         p.fill(0);
-        p.textAlign(p.CENTER);
+        p.textAlign(p.LEFT, p.TOP);
         p.textSize(18);
         p.text("Median Student Debt vs. Average Tuition", 42, 38);
 

@@ -22,9 +22,13 @@
         manager._introImg = p.loadImage("js/img/intro.png");
       }
 
-      p.fill(70);
-      p.textSize(14);
-      p.text("How much financial return does college actually provide?", 42, 42);
+      p.fill(40);
+      p.textAlign(p.CENTER, p.CENTER);
+      p.textSize(28);
+      p.textStyle(p.BOLD);
+
+      p.text("How much financial return does college actually provide?", w / 2, 60);
+      p.textStyle(p.NORMAL);
 
       if (manager._introImg) {
         var imgX = 42;
