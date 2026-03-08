@@ -119,15 +119,18 @@
         p.line(box.x, box.y, box.x, box.y + box.h);
 
         // Y-axis ticks
-        p.noStroke();
         p.fill(0);
         p.textSize(10);
         p.textAlign(p.RIGHT, p.CENTER);
         for (var ti = 0; ti <= 4; ti++) {
           var tickVal = (cache.maxEarn / 4) * ti;
           var tickY = box.y + box.h - (tickVal / cache.maxEarn) * box.h;
+          p.noStroke();
           p.text(fmtMoney(tickVal), box.x - 8, tickY);
+          p.stroke(0);
+          p.line(box.x - 5, tickY, box.x, tickY);
         }
+        p.noStroke();
 
         // Axis labels
         p.fill(0);
