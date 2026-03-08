@@ -21,10 +21,7 @@
         p.fill(0);
         p.textAlign(p.CENTER);
         p.textSize(18);
-        p.text("Median Student Debt vs. Post-Enrollment Earnings",
-          offsetX + w / 2,
-          offsetY + 30
-        );
+        p.text("Median Student Debt vs. Post-Enrollment Earnings", 42, 38);
 
         // ---- CHECK DATA ----
         if (!manager.scorecardRows || !manager.scorecardRows.length) {

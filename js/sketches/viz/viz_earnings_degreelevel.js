@@ -140,10 +140,10 @@
         p.text("Highest Degree Level", box.x + box.w / 2, box.y + box.h + 28);
 
         p.push();
-        p.translate(box.x - 60, box.y + box.h / 2);
+        p.translate(box.x - 65, box.y + box.h / 2);
         p.rotate(-p.HALF_PI);
         p.textAlign(p.CENTER, p.TOP);
-        p.text("Avg Earnings (10yr after entry)", 0, 0);
+        p.text("Avg Earnings (10 yrs after entry)", 0, 0);
         p.pop();
 
         // Key / Legend
