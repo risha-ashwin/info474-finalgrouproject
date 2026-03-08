@@ -21,7 +21,7 @@
         p.fill(0);
         p.textAlign(p.LEFT, p.TOP);
         p.textSize(18);
-        p.text("Median Student Debt vs. Average Post-Enrollment Earnings", 42, 38);
+        p.text("Median Student Debt vs. Median Post-Enrollment Earnings", 42, 38);
 
         // ---- CHECK DATA ----
         if (!manager.scorecardRows || !manager.scorecardRows.length) {
@@ -86,11 +86,11 @@
         // ---- AXIS LABELS ----
         p.textAlign(p.CENTER);
         p.textSize(14);
-        p.text("Median Student Debt ($)", offsetX + w / 2, offsetY + h - 30);
+        p.text("Median Student Debt (dollars)", offsetX + w / 2, offsetY + h - 30);
         p.push();
         p.translate(offsetX + 20, offsetY + h / 2);
         p.rotate(-p.HALF_PI);
-        p.text("Average Earnings (10 yrs after entry)", 0, 0);
+        p.text("Median Earnings (10 years after entry)", 0, 0);
         p.pop();
 
         // ---- DRAW POINTS + HOVER DETECTION ----

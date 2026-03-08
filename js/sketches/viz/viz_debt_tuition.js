@@ -86,11 +86,11 @@
         // ---- AXIS LABELS ----
         p.textAlign(p.CENTER);
         p.textSize(14);
-        p.text("Average Tuition ($)", offsetX + w / 2, offsetY + h - 30);
+        p.text("Average Tuition (dollars)", offsetX + w / 2, offsetY + h - 30);
         p.push();
         p.translate(offsetX + 20, offsetY + h / 2);
         p.rotate(-p.HALF_PI);
-        p.text("Median Student Debt ($)", 0, 0);
+        p.text("Median Student Debt (dollars)", 0, 0);
         p.pop();
 
         // ---- DRAW POINTS + HOVER DETECTION ----

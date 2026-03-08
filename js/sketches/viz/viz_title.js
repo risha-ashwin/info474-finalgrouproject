@@ -23,11 +23,11 @@
       }
 
       p.fill(40);
-      p.textAlign(p.LEFT, p.TOP);
+      p.textAlign(p.LEFT, p.CENTER);
       p.textSize(18);
       p.textStyle(p.BOLD);
 
-      p.text("How much financial return does college actually provide?", 42, 42, w - 84, 60);
+      p.text("How much financial return does a degree actually provide?", 42, 66, w - 84);
       p.textStyle(p.NORMAL);
 
       if (manager._introImg) {

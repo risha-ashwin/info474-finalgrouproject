@@ -143,7 +143,7 @@
         p.translate(box.x - 65, box.y + box.h / 2);
         p.rotate(-p.HALF_PI);
         p.textAlign(p.CENTER, p.TOP);
-        p.text("Average Earnings (10 yrs after entry)", 0, 0);
+        p.text("Average Earnings (10 years after entry)", 0, 0);
         p.pop();
 
         // Key / Legend
@@ -162,7 +162,7 @@
         // Hover tooltip
         if (hover) {
           var msg1 = hover.label;
-          var msg2 = "Average Earnings: " + fmtMoney(hover.earn);
+          var msg2 = "Median Earnings: " + fmtMoney(hover.earn);
           var msg3 = "Institutions: " + hover.count.toLocaleString();
           var tx = p.mouseX + 12, ty = p.mouseY - 50, pad = 8;
 
