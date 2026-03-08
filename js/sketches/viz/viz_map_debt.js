@@ -22,7 +22,7 @@
     p.fill(30);
     p.textSize(12);
     p.textAlign(p.LEFT, p.BOTTOM);
-    p.text("Median student debt", x, y - 6);
+    p.text("Median Student Debt", x, y - 6);
 
     p.textAlign(p.LEFT, p.TOP);
     p.text("$" + Math.round(minV).toLocaleString(), x, y + h + 6);
