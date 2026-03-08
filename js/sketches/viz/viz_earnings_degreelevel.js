@@ -127,9 +127,6 @@
           var tickVal = (cache.maxEarn / 4) * ti;
           var tickY = box.y + box.h - (tickVal / cache.maxEarn) * box.h;
           p.text(fmtMoney(tickVal), box.x - 8, tickY);
-          p.stroke(0);
-          p.line(box.x, tickY, box.x + box.w, tickY);
-          p.noStroke();
         }
 
         // Axis labels
