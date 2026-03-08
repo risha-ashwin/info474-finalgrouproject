@@ -26,7 +26,7 @@
         p.fill(0);
         p.textAlign(p.LEFT, p.TOP);
         p.textSize(18);
-        p.text("Average Post-Enrollment Earnings by Highest Degree Offered", 42, 38);
+        p.text("Median Post-Enrollment Earnings by Highest Degree Offered", 42, 38);
 
         if (!manager.scorecardRows || !manager.scorecardRows.length) {
           p.fill(0);
@@ -162,7 +162,7 @@
         // Hover tooltip
         if (hover) {
           var msg1 = hover.label;
-          var msg2 = "Median Earnings: " + fmtMoney(hover.earn);
+          var msg2 = "Earnings: " + fmtMoney(hover.earn);
           var msg3 = "Institutions: " + hover.count.toLocaleString();
           var tx = p.mouseX + 12, ty = p.mouseY - 50, pad = 8;
 
