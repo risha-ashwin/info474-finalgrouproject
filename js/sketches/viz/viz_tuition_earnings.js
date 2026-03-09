@@ -90,7 +90,7 @@
         p.push();
         p.translate(offsetX + 35, offsetY + h / 2);
         p.rotate(-p.HALF_PI);
-        p.text("Median Earnings (10 yrs after entry)", 0, 0);
+        p.text("Median Earnings (10 years after entry)", 0, 0);
         p.pop();
 
         // ---- DRAW POINTS + HOVER DETECTION ----

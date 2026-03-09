@@ -143,7 +143,7 @@
         p.translate(box.x - 65, box.y + box.h / 2);
         p.rotate(-p.HALF_PI);
         p.textAlign(p.CENTER, p.TOP);
-        p.text("Average Earnings (10 years after entry)", 0, 0);
+        p.text("Median Earnings (10 years after entry)", 0, 0);
         p.pop();
 
         // Key / Legend
