@@ -26,7 +26,7 @@
         p.fill(0);
         p.textAlign(p.LEFT, p.TOP);
         p.textSize(18);
-        p.text("Median Post-Enrollment Earnings by Highest Degree Offered", 42, 38);
+        p.text("Average Post-Enrollment Earnings by Highest Degree Offered", 42, 38);
 
         if (!manager.scorecardRows || !manager.scorecardRows.length) {
           p.fill(0);
@@ -143,7 +143,7 @@
         p.translate(box.x - 65, box.y + box.h / 2);
         p.rotate(-p.HALF_PI);
         p.textAlign(p.CENTER, p.TOP);
-        p.text("Median Earnings (10 years after entry)", 0, 0);
+        p.text("Average Earnings (10 years after entry)", 0, 0);
         p.pop();
 
         // Key / Legend
