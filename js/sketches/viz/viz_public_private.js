@@ -35,13 +35,13 @@
       p.fill(255);
       p.rect(18, 18, w - 36, h - 36, 18);
 
-      p.fill(25);
+      p.fill(0);
       p.textAlign(p.LEFT, p.TOP);
-      p.textSize(16);
+      p.textSize(18);
       p.text("Public vs. Private: Debt and Earnings", 42, 38);
 
       if (!manager.scorecardRows || !manager.scorecardRows.length) {
-        p.fill(90);
+        p.fill(0);
         p.textSize(13);
         p.text("Loading dataset…", 42, 64);
         p.pop();
@@ -51,7 +51,7 @@
       if (!manager._pubpri) manager._pubpri = stats(manager.scorecardRows);
       var s = manager._pubpri;
 
-      p.fill(90);
+      p.fill(0);
       p.textSize(12);
       p.text(
         "Medians across Institution Types (Public n=" + s.public.n.toLocaleString() +
@@ -66,7 +66,7 @@
       var cPri = p.color(232, 115, 140);
 
       function drawRow(y, label, pubVal, priVal, maxVal, fmt) {
-        p.fill(30);
+        p.fill(0);
         p.textSize(13);
         p.textAlign(p.LEFT, p.TOP);
         p.text(label, chartX, y);
@@ -112,7 +112,7 @@
           p.rect(tx, ty, tw, th, 8);
 
           p.noStroke();
-          p.fill(20);
+          p.fill(0);
           p.textAlign(p.LEFT, p.TOP);
           p.text(hover, tx + pad, ty + pad);
           p.pop();
@@ -136,7 +136,7 @@
         function (v) { return "$" + Math.round(v).toLocaleString(); }
       );
 
-      p.fill(110);
+      p.fill(0);
       p.textSize(11);
       p.textAlign(p.LEFT, p.BOTTOM);
       p.text("Private includes nonprofit + for-profit.", 42, h - 30);

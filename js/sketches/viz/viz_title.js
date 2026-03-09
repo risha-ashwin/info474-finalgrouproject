@@ -18,20 +18,40 @@
       p.fill(90);
       p.textSize(13);
 
-      p.fill(20);
-      p.textSize(28);
-      p.text("The Financial Reality\nof Higher Education", 42, 66);
+      if (!manager._introImg) {
+        manager._introImg = p.loadImage("js/img/intro.png");
+      }
 
-      p.fill(70);
-      p.textSize(14);
-      p.text("Scroll the article on the left.\nThe visuals update as you read.", 42, 160);
+      p.fill(40);
+      p.textAlign(p.LEFT, p.TOP);
+      p.textSize(18);
+      p.textStyle(p.BOLD);
+      p.text("How much financial return does a degree actually provide?", 42, 46, w - 84, 32);
+      p.textStyle(p.NORMAL);
 
+      if (manager._introImg) {
+        var imgX = 42;
+        var imgY = 165;
+        var imgW = w - 84;
+        var imgH = 300;
+
+        p.drawingContext.save();
+        p.drawingContext.beginPath();
+        p.drawingContext.roundRect(imgX, imgY, imgW, imgH, 16);
+        p.drawingContext.clip();
+
+        p.image(manager._introImg, imgX, imgY, imgW, imgH);
+
+        p.drawingContext.restore();
+      }
+
+      /*
       p.fill(110);
       p.textSize(12);
       var status = (manager.scorecardRows && manager.scorecardRows.length)
         ? ("Loaded " + manager.scorecardRows.length.toLocaleString() + " rows")
         : "Loading dataset…";
-      p.text(status, 42, h - 60);
+      p.text(status, 42, h - 60);*/
 
       p.pop();
     }

@@ -23,13 +23,13 @@
         p.fill(255);
         p.rect(18, 18, w - 36, h - 36, 18);
 
-        p.fill(25);
+        p.fill(0);
         p.textAlign(p.LEFT, p.TOP);
-        p.textSize(16);
-        p.text("Earnings by Highest Degree Offered (10yr after entry)", 42, 38);
+        p.textSize(18);
+        p.text("Median Earnings (10 years after entry) by Highest Degree Offered", 42, 38);
 
         if (!manager.scorecardRows || !manager.scorecardRows.length) {
-          p.fill(90);
+          p.fill(0);
           p.textSize(13);
           p.text("Loading dataset…", 42, 64);
           p.pop();
@@ -102,7 +102,7 @@
           p.rect(x, y, barWidth, barH, 4);
 
           // Bar label (degree name)
-          p.fill(40);
+          p.fill(0);
           p.textAlign(p.CENTER, p.TOP);
           p.textSize(11);
           p.text(b.label, x + barWidth / 2, box.y + box.h + 8);
@@ -114,40 +114,40 @@
         }
 
         // Axes
-        p.stroke(0, 60);
+        p.stroke(0);
         p.line(box.x, box.y + box.h, box.x + box.w, box.y + box.h);
         p.line(box.x, box.y, box.x, box.y + box.h);
 
         // Y-axis ticks
-        p.noStroke();
-        p.fill(90);
+        p.fill(0);
         p.textSize(10);
         p.textAlign(p.RIGHT, p.CENTER);
         for (var ti = 0; ti <= 4; ti++) {
           var tickVal = (cache.maxEarn / 4) * ti;
           var tickY = box.y + box.h - (tickVal / cache.maxEarn) * box.h;
-          p.text(fmtMoney(tickVal), box.x - 8, tickY);
-          p.stroke(0, 20);
-          p.line(box.x, tickY, box.x + box.w, tickY);
           p.noStroke();
+          p.text(fmtMoney(tickVal), box.x - 8, tickY);
+          p.stroke(0);
+          p.line(box.x - 5, tickY, box.x, tickY);
         }
+        p.noStroke();
 
         // Axis labels
-        p.fill(45);
+        p.fill(0);
         p.noStroke();
         p.textAlign(p.CENTER, p.TOP);
         p.textSize(13);
         p.text("Highest Degree Level", box.x + box.w / 2, box.y + box.h + 28);
 
         p.push();
-        p.translate(box.x - 55, box.y + box.h / 2);
+        p.translate(box.x - 65, box.y + box.h / 2);
         p.rotate(-p.HALF_PI);
         p.textAlign(p.CENTER, p.TOP);
-        p.text("Median Earnings (10yr after entry)", 0, 0);
+        p.text("Average Earnings (10 years after entry)", 0, 0);
         p.pop();
 
         // Key / Legend
-        p.fill(90);
+        p.fill(0);
         p.textSize(10);
         p.textAlign(p.LEFT, p.TOP);
         var keyY = h - 52;
@@ -162,7 +162,7 @@
         // Hover tooltip
         if (hover) {
           var msg1 = hover.label;
-          var msg2 = "Avg Earnings: " + fmtMoney(hover.earn);
+          var msg2 = "Earnings: " + fmtMoney(hover.earn);
           var msg3 = "Institutions: " + hover.count.toLocaleString();
           var tx = p.mouseX + 12, ty = p.mouseY - 50, pad = 8;
 
@@ -179,7 +179,7 @@
           p.rect(tx, ty, tw, th, 8);
 
           p.noStroke();
-          p.fill(20);
+          p.fill(0);
           p.textAlign(p.LEFT, p.TOP);
           p.text(msg1, tx + pad, ty + pad);
           p.text(msg2, tx + pad, ty + pad + 16);

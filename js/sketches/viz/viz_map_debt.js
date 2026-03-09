@@ -19,10 +19,10 @@
       p.fill(colorRamp(p, t));
       p.rect(x + i, y, 1, h);
     }
-    p.fill(30);
+    p.fill(0);
     p.textSize(12);
     p.textAlign(p.LEFT, p.BOTTOM);
-    p.text("Median student debt", x, y - 6);
+    p.text("Median Student Debt", x, y - 6);
 
     p.textAlign(p.LEFT, p.TOP);
     p.text("$" + Math.round(minV).toLocaleString(), x, y + h + 6);
@@ -120,13 +120,13 @@
       p.fill(255);
       p.rect(18, 18, w - 36, h - 36, 18);
 
-      p.fill(25);
+      p.fill(0);
       p.textAlign(p.LEFT, p.TOP);
-      p.textSize(16);
+      p.textSize(18);
       p.text("Geography of Student Debt", 42, 38);
 
       if (!manager._debtByState) {
-        p.fill(90);
+        p.fill(0);
         p.textSize(13);
         p.text("Loading debt data…", 42, 64);
         p.pop();
@@ -139,7 +139,7 @@
         p.text("Loading map…", 42, 64);
 
         if (manager._mapError) {
-          p.fill(140);
+          p.fill(0);
           p.textSize(12);
           p.text("Map error: " + manager._mapError, 42, 84);
         }
@@ -149,7 +149,7 @@
       }
 
       if (typeof d3 === "undefined" || typeof d3.geoAlbersUsa !== "function") {
-        p.fill(140);
+        p.fill(0);
         p.textSize(12);
         p.text("Error: d3-geo library not loaded correctly.", 42, 64);
         p.pop();
@@ -275,7 +275,7 @@
         p.rect(tx, ty, tw, th, 8);
 
         p.noStroke();
-        p.fill(20);
+        p.fill(0);
         p.textAlign(p.LEFT, p.TOP);
         p.text(msg, tx + pad, ty + pad);
         p.pop();

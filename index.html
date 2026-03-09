@@ -14,7 +14,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">INFO 474 • Interactive Article</div>
-      <div class="subtitle">Student Debt & Earnings</div>
+      <div class="subtitle">Risha Ashwin & Simran Gupta</div>
     </div>
   </header>
 
@@ -24,8 +24,8 @@
 
         <!-- Intro -->
         <section class="step" data-active-index="0">
-          <div class="kicker">Higher Education</div>
-          <h1 class="title">The Financial Reality of College</h1>
+          <div class="kicker">Introduction</div>
+          <h1 class="title">The Financial Reality of Higher Education</h1>
           <p class="dek">
             College is often described as an investment in the future, but how strong is the return after graduation?
           </p>
@@ -55,7 +55,7 @@
         </section>
 
         <section class="step" data-active-index="1">
-          <h2 class="title">Reading the map</h2>
+          <h2 class="title">Reading the Map</h2>
           <p>
             Differences can reflect tuition, aid availability, local policy, and the mix of institutions students
             attend in each state. The map gives a high-level geographic view before we compare institutions more directly.
@@ -73,7 +73,7 @@
         </section>
 
         <section class="step" data-active-index="2">
-          <h2 class="title">What to look for</h2>
+          <h2 class="title">What to Look For</h2>
           <p>
             A gap in debt does not automatically mean a similar gap in earnings. Comparing both measures side by side
             helps show whether higher borrowing appears to correspond to stronger outcomes later on.
@@ -92,7 +92,7 @@
         </section>
 
         <section class="step" data-active-index="3">
-          <h2 class="title">Interpreting the pattern</h2>
+          <h2 class="title">Interpreting the Pattern</h2>
           <p>
             Look for the overall direction of the cloud of points and how spread out it is. A weak or noisy pattern would suggest
             that similar debt levels can still lead to very different financial outcomes.
@@ -124,8 +124,21 @@
           <div class="kicker">Visualization 6</div>
           <h2 class="title">How do financial outcomes differ by the highest degree offered?</h2>
           <p>
-            The final view will compare debt and earnings by the highest degree level institutions offer, helping show
-            whether outcomes differ across institution types.
+            The final view will compare post-enrollment earnings by the highest degree level institutions offer, helping show whether outcomes differ by degree achieved.
+          </p>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="step" data-active-index="7">
+          <div class="kicker">Conclusion</div>
+          <h2 class="title">What do these patterns suggest?</h2>
+          <p>
+            Higher education remains one of the most significant financial decisions students make.
+            Across institutions, the relationship between tuition, borrowing, and earnings is not
+            always straightforward. While certain degrees and institutions show stronger outcomes,
+            others leave students with higher debt and less predictable financial returns. These
+            patterns highlight the importance of understanding the economic trade-offs behind
+            educational choices.
           </p>
         </section>
 
@@ -137,10 +150,11 @@
         <div id="vis-caption"></div>
       </div>
     </div>
-
+    
     <footer class="footer">
-      Data source: U.S. Department of Education College Scorecard (processed to a small CSV).
+      Data Source: U.S. Department of Education College Scorecard (processed to a small CSV).
     </footer>
+    
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>
@@ -156,6 +170,7 @@
   <script src="js/sketches/viz/viz_debt_tuition.js"></script>
   <script src = "js/sketches/viz/viz_tuition_earnings.js"></script>
   <script src = "js/sketches/viz/viz_earnings_degreelevel.js"></script>
+  <script src="js/sketches/viz/viz_conclusion.js"></script>
 
   <script src="js/sketches/sketch_renderer.js"></script>
   <script src="js/sketches/sketch_manager.js"></script>

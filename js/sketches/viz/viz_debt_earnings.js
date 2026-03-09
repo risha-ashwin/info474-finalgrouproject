@@ -9,7 +9,7 @@
         var h = manager.height || 600;
         var offsetX = manager.offsetX || 0;
         var offsetY = manager.offsetY || 0;
-        var margin = 80;
+        var margin = 110;
 
         p.push();
         // ---- BACKGROUND ----
@@ -19,12 +19,9 @@
 
         // ---- TITLE ----
         p.fill(0);
-        p.textAlign(p.CENTER);
+        p.textAlign(p.LEFT, p.TOP);
         p.textSize(18);
-        p.text("Median Student Debt vs. Post-Enrollment Earnings ((10yr after entry)",
-          offsetX + w / 2,
-          offsetY + 30
-        );
+        p.text("Median Student Debt vs. Median Post-Enrollment Earnings", 42, 38);
 
         // ---- CHECK DATA ----
         if (!manager.scorecardRows || !manager.scorecardRows.length) {
@@ -89,11 +86,11 @@
         // ---- AXIS LABELS ----
         p.textAlign(p.CENTER);
         p.textSize(14);
-        p.text("Median Student Debt ($)", offsetX + w / 2, offsetY + h - 30);
+        p.text("Median Student Debt (dollars)", offsetX + w / 2, offsetY + h - 70);
         p.push();
-        p.translate(offsetX + 20, offsetY + h / 2);
+        p.translate(offsetX + 35, offsetY + h / 2);
         p.rotate(-p.HALF_PI);
-        p.text("Median Earnings 10yr After Entry ($)", 0, 0);
+        p.text("Median Earnings (10 years after entry)", 0, 0);
         p.pop();
 
         // ---- DRAW POINTS + HOVER DETECTION ----
