@@ -112,15 +112,17 @@
 
         // ---- REGRESSION LINE ----
         var n = data.length;
-        var sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+        var sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0, sumY2 = 0;
         for (var r = 0; r < n; r++) {
           sumX += data[r].avgCost;
           sumY += data[r].debt;
           sumXY += data[r].avgCost * data[r].debt;
           sumX2 += data[r].avgCost * data[r].avgCost;
+          sumY2 += data[r].debt * data[r].debt;
         }
         var slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
         var intercept = (sumY - slope * sumX) / n;
+        var corrR = (n * sumXY - sumX * sumY) / Math.sqrt((n * sumX2 - sumX * sumX) * (n * sumY2 - sumY * sumY));
         var x1 = xMin, y1 = slope * x1 + intercept;
         var x2 = xMax, y2 = slope * x2 + intercept;
 
@@ -132,6 +134,13 @@
           p.map(x2, xMin, xMax, offsetX + margin, offsetX + w - margin),
           p.map(y2, yMin, yMax, offsetY + h - margin, offsetY + margin)
         );
+
+        // ---- R VALUE ----
+        p.noStroke();
+        p.fill(0);
+        p.textAlign(p.RIGHT, p.TOP);
+        p.textSize(13);
+        p.text("r = " + corrR.toFixed(2), offsetX + w - margin, offsetY + margin);
 
         // ---- HOVER TOOLTIP ----
         if (hover) {
