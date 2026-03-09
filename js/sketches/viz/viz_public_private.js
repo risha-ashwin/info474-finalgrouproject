@@ -131,7 +131,7 @@
 
       drawRow(
         300,
-        "Median Earnings (10 years after entry)",
+        "Median Student Earnings (10 years after entry)",
         s.public.earn, s.private.earn, earnMax,
         function (v) { return "$" + Math.round(v).toLocaleString(); }
       );

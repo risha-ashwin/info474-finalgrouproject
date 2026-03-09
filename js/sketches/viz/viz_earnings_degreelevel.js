@@ -26,7 +26,7 @@
         p.fill(25);
         p.textAlign(p.LEFT, p.TOP);
         p.textSize(16);
-        p.text("Earnings by Highest Degree Offered", 42, 38);
+        p.text("Earnings by Highest Degree Offered (10yr after entry)", 42, 38);
 
         if (!manager.scorecardRows || !manager.scorecardRows.length) {
           p.fill(90);
@@ -143,7 +143,7 @@
         p.translate(box.x - 55, box.y + box.h / 2);
         p.rotate(-p.HALF_PI);
         p.textAlign(p.CENTER, p.TOP);
-        p.text("Avg Earnings (10yr after entry)", 0, 0);
+        p.text("Median Earnings (10yr after entry)", 0, 0);
         p.pop();
 
         // Key / Legend
