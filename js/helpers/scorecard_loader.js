@@ -49,7 +49,21 @@
       });
   }
 
+  function loadMapDebt(url) {
+    return fetch(url)
+      .then(function (r) { return r.text(); })
+      .then(function (text) {
+        var raw = parseCSV(text);
+        return raw.map(function (d) {
+          return { state: d.state, debt: toNum(d.debt_mdn) };
+        }).filter(function (d) {
+          return d.state && d.debt != null;
+        });
+      });
+  }
+
   window.ScorecardLoader = {
-    loadInstitutionClean: loadInstitutionClean
+    loadInstitutionClean: loadInstitutionClean,
+    loadMapDebt: loadMapDebt
   };
 })();

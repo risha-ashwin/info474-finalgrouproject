@@ -42,11 +42,12 @@
   // Compute state median debt from institution_clean_final.csv rows
   function computeStateDebt(manager) {
     if (manager._debtByState) return;
-    if (!manager.scorecardRows || !manager.scorecardRows.length) return;
+    var rows = manager._mapDebtRows;
+    if (!rows || !rows.length) return;
 
     var byState = {};
-    for (var i = 0; i < manager.scorecardRows.length; i++) {
-      var d = manager.scorecardRows[i];
+    for (var i = 0; i < rows.length; i++) {
+      var d = rows[i];
       if (d.state && d.debt != null) {
         if (!byState[d.state]) byState[d.state] = [];
         byState[d.state].push(d.debt);
@@ -81,6 +82,11 @@
         "Wisconsin":"WI","Wyoming":"WY"
       };
 
+
+      // Load debt data: state + debt_mdn only (includes all institutions, not just filtered set)
+      ScorecardLoader.loadMapDebt("data/institution_clean_final.csv")
+        .then(function (rows) { manager._mapDebtRows = rows; })
+        .catch(function (err) { console.error("Map debt load failed:", err); });
 
       // Fetch TopoJSON for US states geometry
       var urls = [
