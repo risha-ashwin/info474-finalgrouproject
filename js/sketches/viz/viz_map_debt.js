@@ -32,37 +32,40 @@
     p.pop();
   }
 
-  // Load state_median_debt.csv and parse into a lookup object
-  function loadStateDebt(manager) {
-    if (manager._stateDebtPromise) return manager._stateDebtPromise;
+  function median(arr) {
+    var a = arr.slice().sort(function (x, y) { return x - y; });
+    if (!a.length) return null;
+    var mid = Math.floor(a.length / 2);
+    return a.length % 2 ? a[mid] : (a[mid - 1] + a[mid]) / 2;
+  }
 
-    manager._stateDebtPromise = fetch("data/state_median_debt.csv")
-      .then(function (r) { return r.text(); })
-      .then(function (text) {
-        var lines = text.trim().split(/\r?\n/);
-        var out = {};
-        var vals = [];
-        for (var i = 1; i < lines.length; i++) {
-          var parts = lines[i].split(",");
-          var st = parts[0].trim();
-          var debt = parseFloat(parts[1]);
-          if (st && isFinite(debt)) {
-            out[st] = debt;
-            vals.push(debt);
-          }
-        }
-        vals.sort(function (a, b) { return a - b; });
-        out.__min = vals.length ? vals[0] : 0;
-        out.__max = vals.length ? vals[vals.length - 1] : 1;
-        manager._debtByState = out;
-        console.log("State debt data loaded:", Object.keys(out).length - 2, "states");
-      })
-      .catch(function (err) {
-        console.error("Failed to load state_median_debt.csv:", err);
-        manager._stateDebtError = String(err);
-      });
+  // Compute state median debt from institution_clean_final.csv rows
+  function computeStateDebt(manager) {
+    if (manager._debtByState) return;
+    if (!manager.scorecardRows || !manager.scorecardRows.length) return;
 
-    return manager._stateDebtPromise;
+    var byState = {};
+    for (var i = 0; i < manager.scorecardRows.length; i++) {
+      var d = manager.scorecardRows[i];
+      if (d.state && d.debt != null) {
+        if (!byState[d.state]) byState[d.state] = [];
+        byState[d.state].push(d.debt);
+      }
+    }
+
+    var out = {};
+    var vals = [];
+    var states = Object.keys(byState);
+    for (var s = 0; s < states.length; s++) {
+      var st = states[s];
+      var med = median(byState[st]);
+      if (med != null) { out[st] = med; vals.push(med); }
+    }
+
+    vals.sort(function (a, b) { return a - b; });
+    out.__min = vals.length ? vals[0] : 0;
+    out.__max = vals.length ? vals[vals.length - 1] : 1;
+    manager._debtByState = out;
   }
 
   window.VizMapDebt = {
@@ -78,8 +81,6 @@
         "Wisconsin":"WI","Wyoming":"WY"
       };
 
-      // Start loading state debt CSV
-      loadStateDebt(manager);
 
       // Fetch TopoJSON for US states geometry
       var urls = [
@@ -125,6 +126,7 @@
       p.textSize(18);
       p.text("Geography of Student Debt", 42, 38);
 
+      computeStateDebt(manager);
       if (!manager._debtByState) {
         p.fill(0);
         p.textSize(13);
