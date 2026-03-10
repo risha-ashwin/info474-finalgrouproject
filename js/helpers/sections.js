@@ -24,7 +24,7 @@
       3: "Each point represents an institution. The x-axis shows median student debt and the y-axis shows median earnings 10 years after entry.",
       4: "Each point represents an institution. The x-axis shows average tuition and the y-axis shows median student debt. The red line is a linear regression.",
       5: "Each point represents an institution. The x-axis shows average tuition and the y-axis shows median earnings 10 years after entry.",
-      6: "Bars show average earnings grouped by the highest degree level an institution offers (0 = Non-degree, 1 = Certificate, 2 = Associate, 3 = Bachelor\u2019s, 4 = Graduate).",
+      6: "Bars show average of median earnings grouped by the highest degree level an institution offers (0 = Non-degree, 1 = Certificate, 2 = Associate, 3 = Bachelor\u2019s, 4 = Graduate).",
       7: ""
     };
 

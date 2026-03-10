@@ -26,7 +26,7 @@
         p.fill(0);
         p.textAlign(p.LEFT, p.TOP);
         p.textSize(18);
-        p.text("Average of Median Earnings (10 years after entry) by Highest Degree Offered", 42, 38);
+        p.text("Average of Median Earnings by Highest Degree Offered", 42, 38);
 
         if (!manager.scorecardRows || !manager.scorecardRows.length) {
           p.fill(0);
